@@ -58,20 +58,27 @@ class Tablero {
 
   borrarLíneasHorizontales(lineas) {
     lineas_hechas += lineas.length;
-    for (const linea of lineas) {
-      for (let fila = linea; fila >= 0; fila--) {
-        for (let columna = 0; columna < this.columnas; columna++) {
-          if (fila == 0) {
-            this.minosAlmacenados[columna][fila] = "";
-            continue;
+    for (let i = 0; i < lineas.length; i++) {
+      let con = 0
+      if(i == 0){
+        for (let fila = lineas[i]; fila >= 0; fila--) {
+          for (let columna = 0; columna < this.columnas; columna++) {
+            this.minosAlmacenados[columna][fila] =
+              this.minosAlmacenados[columna][fila-1];
           }
-          this.minosAlmacenados[columna][fila] =
-            this.minosAlmacenados[columna][fila - 1];
         }
+        con++;
+      }else{
+        for (let fila = lineas[i]+i; fila >= 0; fila--) {
+          for (let columna = 0; columna < this.columnas; columna++) {
+            this.minosAlmacenados[columna][fila] =
+              this.minosAlmacenados[columna][fila-1];
+          }
+        }
+        con = con+1;
       }
-    }
+    } 
   }
-
   /* 
   La coordenada es una transformación no lineal donde se aplica un
   escalamiento (multiplicación) para el ajuste de las medidas y una
